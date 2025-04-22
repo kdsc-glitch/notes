@@ -1,106 +1,83 @@
-h1. 🔍 Overview
+🔍 Overview
 
 The FTA interview process is designed to fairly and consistently assess both the technical capabilities and behavioral traits of candidates. Our goal is to hire not just technically excellent individuals, but also collaborative, thoughtful team members.
 
-The interview consists of a *single 1-hour Zoom session*, divided into:
+The interview consists of a single 1-hour Zoom session, divided into:
 
-* A *coding exercise*
-* *3 additional technical questions* focused on architecture, systems design, and implementation
-* *Behavioral insights* integrated throughout the discussion
+    A coding exercise
 
----
+    3 additional technical questions focused on architecture, systems design, and implementation
 
-h2. 🎯 Scoring System
+    Behavioral insights integrated throughout the discussion
 
-Each of the 4 questions (coding + 3 technical) is scored out of *7 points*:
+🎯 Scoring System
 
-* *5 points* – Technical ability (problem-solving, code quality, architectural design)
-* *2 points* – Behavioral qualities (communication, resilience, collaboration)
+Each of the 4 questions (coding + 3 technical) is scored out of 7 points:
 
-{panel:title=Best Practice}
-Structure your scoring using a clear rubric for each question. This increases consistency and reduces unconscious bias.
-[Google’s Re:Work Guide|https://rework.withgoogle.com/guides/hiring/]
-[HBR on Interview Bias|https://hbr.org/2016/04/how-to-take-the-bias-out-of-interviews]
-{panel}
+    5 points – Technical ability (problem-solving, code quality, architectural design)
 
----
+    2 points – Behavioral qualities (communication, resilience, collaboration)
 
-h2. 🧠 Interview Format
+💡 Use a clear rubric for each question to increase consistency and reduce unconscious bias.
+🔗 Google’s Re:Work Guide: https://rework.withgoogle.com/guides/hiring/
+🔗 HBR on Interview Bias: https://hbr.org/2016/04/how-to-take-the-bias-out-of-interviews
+🧠 Interview Format
 
-*Total time: 60 minutes*
+Total time: 60 minutes
+Section	Time
+Intro & Icebreaker	5 mins
+Coding Challenge	20 mins
+Technical Question 1	10 mins
+Technical Question 2	10 mins
+Technical Question 3	10 mins
+Final Q&A / Wrap-up	5 mins
 
-|| Section || Duration ||
-| Intro & Icebreaker | 5 mins |
-| Coding Challenge | 20 mins |
-| Technical Question 1 | 10 mins |
-| Technical Question 2 | 10 mins |
-| Technical Question 3 | 10 mins |
-| Final Q&A / Wrap-Up | 5 mins |
+Technical questions should explore:
 
-*Technical questions* should explore:
-* Code structure & logic
-* System design and tradeoffs
-* Real-world implementation scenarios
+    Code structure & logic
 
----
+    System design and tradeoffs
 
-h2. 🤝 Interview Panel
+    Real-world implementation scenarios
 
-*Preferred panel composition:*
-* 2 interviewers (1 technical lead, 1 support/observer)
-* 1 optional observer/marker (ideal for scoring)
+🤝 Interview Panel
 
-*Minimum acceptable:*
-* 1 interviewer + 1 marker
+Preferred panel composition:
 
-{panel:title=Why multiple interviewers matter}
-Having multiple perspectives helps reduce personal bias and improves fairness in scoring.
-[APA on Interviewer Bias|https://www.apa.org/news/press/releases/stress/2012/interview-bias]
-{panel}
+    2 interviewers (1 technical lead, 1 support/observer)
 
----
+    Optional: 1 observer/marker
 
-h2. 🗣 Behavioral Evaluation
+Minimum setup:
+
+    1 interviewer + 1 marker
+
+💡 Multiple perspectives reduce bias and improve fairness in scoring.
+🔗 APA on Interviewer Bias: https://www.apa.org/news/press/releases/stress/2012/interview-bias
+🗣 Behavioral Evaluation
 
 Each technical question includes a behavioral element (e.g., communication, collaboration, resilience). You can also consider a dedicated behavioral section (especially for senior roles).
 
-*Encourage interviewers to ask:*
-* "Talk me through your thinking…"
-* "What did you do when things didn’t work?"
-* "How would you approach this in a team setting?"
+Ask questions like:
 
-{panel:title=Behavioral Question Guide}
-Use STAR (Situation, Task, Action, Result) questions for consistent behavioral assessment.
-[SHRM Behavioral Interview Guide|https://www.shrm.org/resourcesandtools/hr-topics/talent-acquisition/pages/conducting-effective-behavioral-interviews.aspx]
-{panel}
+    “Talk me through your thinking…”
 
----
+    “What did you do when things didn’t work?”
 
-h2. 📋 Scoring & Debrief
+    “How would you approach this in a team setting?”
+
+🔗 SHRM Behavioral Interview Guide: https://www.shrm.org/resourcesandtools/hr-topics/talent-acquisition/pages/conducting-effective-behavioral-interviews.aspx
+📋 Scoring & Debrief
 
 After the interview:
 
-# Each interviewer completes their scorecard independently
-# Panel meets for *structured debrief*
-# Discrepancies are discussed; final score is agreed upon
-# If consensus can't be reached, escalate to hiring lead
+    Each interviewer completes their scorecard independently
 
-{panel:title=Scoring Best Practice}
-Avoid groupthink by scoring independently first before discussion.
-[Greenhouse on Debriefs|https://www.greenhouse.io/blog/the-art-of-the-debrief-why-post-interview-discussions-are-critical]
-{panel}
+    Panel meets for structured debrief
 
----
+    Discrepancies are discussed and resolved
 
-h2. ✅ Optional Enhancements
+    Escalate to hiring lead if needed
 
-Consider implementing:
-
-* A *candidate prep packet* outlining structure and expectations
-* An *async take-home task* to assess real-world problem-solving
-* *Interviewer bias training*
-* *Standardized feedback process* for candidates post-interview
-
-{panel:title=Fair Hiring Practice Resource}
-[Tech Equity Collaborative: Fair Hiring Guide|https://techequitycollaborative.org/research/fair-hiring-practices/]
-{panel}
+💡 Avoid groupthink by scoring independently first before discussion.
+🔗 Greenhouse on Debriefs: https://www.greenhouse.io/blog/the-art-of-the-debrief-why-post-interview-discussions-are-critical
