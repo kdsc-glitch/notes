@@ -2,8 +2,15 @@ h2. 🤩 Artifactory Federation – Internal Guide
 
 h3. 📌 What Is Artifactory Federation?
 
-*Artifactory Federation* keeps repositories synchronized across multiple Artifactory instances using *bi-directional replication*. This ensures artifacts are available across environments and regions without manual syncing.
+Artifactory Federation allows repositories in separate Artifactory instances (e.g., across regions or environments) to automatically replicate content bi-directionally. This ensures developers in different regions can access the same set of artifacts with low latency and without needing to manually sync or upload.
 
+In our setup, federated repositories are used to:
+
+    Share artifacts between primary (e.g., artifactory-np.evnsrtp.net) and regional instances (e.g., artifactory.us-east-2.dev.awstrp.net)
+
+    Reduce deployment latency across geographies
+
+    Provide high availability and resilience
 ----
 
 h3. 🏠 Federation in Our Environments
