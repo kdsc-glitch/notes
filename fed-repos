@@ -1,0 +1,139 @@
+h2. 🤩 Artifactory Federation – Internal Guide
+
+h3. 📌 What Is Artifactory Federation?
+
+*Artifactory Federation* keeps repositories synchronized across multiple Artifactory instances using *bi-directional replication*. This ensures artifacts are available across environments and regions without manual syncing.
+
+----
+
+h3. 🏠 Federation in Our Environments
+
+We currently operate four Artifactory instances:
+
+h4. 🤖 Non-Production
+
+|| Instance URL || Role ||
+| `artifactory-np.awstrp.net` | Main Non-Prod |
+| `artifactory.us-east-2.dev.awstrp.net` | NP Backup |
+
+h4. 🚀 Production
+
+|| Instance URL || Role ||
+| `artifactory.awstrp.net` | Main Prod |
+| `artifactory.us-east-1.awstrp.net` | Prod Backup |
+
+h4. 🔄 Federation Strategy
+
+* Non-Prod: Repos on `artifactory-np.awstrp.net` must declare `https://artifactory.us-east-2.dev.awstrp.net/artifactory/<repo-name>` as a member.
+* Prod: Repos on `artifactory.awstrp.net` must declare `https://artifactory.us-east-1.awstrp.net/artifactory/<repo-name>` as a member.
+
+This ensures *bi-directional replication* between main and backup instances in each environment.
+
+----
+
+h3. ⚙️ How It Works – System Architecture
+
+h4. ✅ Components
+
+|| Component || Role ||
+| *Artifactory* | Artifact storage and repository manager |
+| *Federated Repos* | Repositories with bi-directional sync |
+| *Mission Control* | Orchestration and topology management |
+| *Terraform* | IaC for repo setup |
+| *Renovate* | Automates provider updates |
+
+h4. 🛏️ Artifact Flow Example
+
+* A dev uploads to: `artifactory.us-east-2.dev.awstrp.net/artifactory/docker-federated-test-local`
+* Artifactory replicates it to: `artifactory-np.awstrp.net`
+* Artifact is now available on both instances.
+
+{info:title=Note}
+Even though Mission Control shows federation topology, Terraform does *not* inherit this automatically. Federation must be defined explicitly.
+{info}
+
+----
+
+h3. 💪 How We Use Terraform
+
+We use the [JFrog Artifactory Terraform Provider|https://registry.terraform.io/providers/jfrog/artifactory/latest].
+
+* All federated repos are defined in: `terraform/module/artifactory/repository/local/`
+* We use Renovate to keep provider versions up-to-date.
+
+----
+
+h3. ✍️ Example: Federated Repo with Terraform
+
+h4. Main Non-Prod
+
+{code:lang=hcl}
+resource "artifactory_federated_docker_repository" "docker-federated-test-local" {
+  key           = "docker-federated-test-local"
+  property_sets = ["artifactory"]
+
+  member {
+    url     = "https://artifactory.us-east-2.dev.awstrp.net/artifactory/docker-federated-test-local"
+    enabled = true
+  }
+}
+{code}
+
+h4. Main Prod
+
+{code:lang=hcl}
+resource "artifactory_federated_docker_repository" "docker-federated-prod-local" {
+  key           = "docker-federated-prod-local"
+  property_sets = ["artifactory"]
+
+  member {
+    url     = "https://artifactory.us-east-1.awstrp.net/artifactory/docker-federated-prod-local"
+    enabled = true
+  }
+}
+{code}
+
+----
+
+h3. 🔧 Adding a New Federated Repo
+
+# Create a `.tf` file under `terraform/module/artifactory/repository/local/`
+# Define `artifactory_federated_<type>_repository` with correct `member` URLs
+# Open a merge request
+# Let the pipeline apply the changes after approval
+
+----
+
+h3. ⚠️ Known Issues + Fixes
+
+|| Issue || Cause || Fix ||
+| `Provider produced inconsistent result after apply` | API doesn't return expected structure | Upgrade via Renovate or use `lifecycle.ignore_changes` |
+| Repo not replicating | Member misconfigured or missing | Ensure identical repo names and members |
+| Repo shows in UI but Terraform fails | Terraform can't reconcile API state | Validate manually, import if needed |
+
+----
+
+h3. ⛏ Advanced Tips
+
+* Use lifecycle ignore to prevent noisy diffs:
+
+{code:lang=hcl}
+lifecycle {
+  ignore_changes = [member]
+}
+{code}
+
+* Federation members require preconfigured access/auth
+* You can define multiple `member` blocks for multi-node replication
+
+----
+
+h3. 📄 References
+
+* [JFrog Federation Docs|https://jfrog.com/help/r/jfrog-artifactory-documentation/repository-federation]
+* [Terraform Provider Registry|https://registry.terraform.io/providers/jfrog/artifactory/latest]
+* [Mission Control Overview|https://jfrog.com/help/r/jfrog-mission-control-documentation/welcome-to-jfrog-mission-control]
+
+----
+
+Need help? Reach out in the #dev-infra Slack channel.
