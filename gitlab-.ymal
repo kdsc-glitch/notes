@@ -31,3 +31,67 @@ stages:
     EXTRA_ARGS: "--release"
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+include:
+  - project: 'unity/gitlab-ci-templates'
+    file: '/Jobs/helm-values.gitlab-ci.yml'
+
+.common: &common
+  variables:
+    VERSION: "1.2.0"
+
+.dev-vars: &dev-vars
+  variables:
+    TEMPLATE: dev
+    S3_BUCKET_NAME: gitlab-gitlab-runner-trp-dev-cache
+    GITLAB_URL: "https://gitlab-np.awstrp.net"
+    ROLE_ARN: "arn:aws:iam::058246440007:role/troweprice/gitlab/kubernetes-pod-gitlab-gitlab-runner"
+
+.prod-vars: &prod-vars
+  variables:
+    TEMPLATE: prod
+    S3_BUCKET_NAME: gitlab-gitlab-runner-trp-prod-cache
+    GITLAB_URL: "https://gitlab.awstrp.net"
+    ROLE_ARN: "arn:aws:iam::533267065414:role/troweprice/gitlab/kubernetes-pod-gitlab-gitlab-runner"
+
+# ----------- DEV SNAPSHOT -----------
+publish_values_files_dev_snapshot:
+  extends:
+    - .publish-snapshot-values-files
+    - .common
+  <<: *dev-vars
+
+# ----------- DEV RELEASE -----------
+publish_values_files_dev_release:
+  extends:
+    - .publish-release-values-files
+    - .common
+  <<: *dev-vars
+
+# ----------- PROD SNAPSHOT -----------
+publish_values_files_prod_snapshot:
+  extends:
+    - .publish-snapshot-values-files
+    - .common
+  <<: *prod-vars
+
+# ----------- PROD RELEASE -----------
+publish_values_files_prod_release:
+  extends:
+    - .publish-release-values-files
+    - .common
+  <<: *prod-vars
