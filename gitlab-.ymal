@@ -1,0 +1,33 @@
+stages:
+  - publish-snapshot
+  - publish-release
+
+.default-values-publish: &default-values-publish
+  image: docker-release-local.docker.awstrp.net/com/trp/ea/unity-base-docker/trp-upload/trp-upload:1.1.0@sha256:2d6be5d286882be227c1245e3bc18f5e8e084fc69f7919a450c1fca6dd313de6
+  id_tokens:
+    UNITY_TOKEN:
+      aud: https://unity.awstrp.net
+  script:
+    - eval "$(uman ubuild environment)"
+    - apt -y install gettext
+    - envsubst < values.yaml.template > values-${TEMPLATE}.yaml
+    - uman ubuild publish ${EXTRA_ARGS} --source values-${TEMPLATE}.yaml --target ${DISTRIBUTION}/com/trp/unity/${CI_PROJECT_PATH}/helm-values/${VERSION}.yaml
+
+.publish-snapshot-values-files:
+  <<: *default-values-publish
+  stage: publish-snapshot
+  variables:
+    DISTRIBUTION: distributions-snapshot-local
+    EXTRA_ARGS: ""
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "merge_request_event"'
+      when: on_success
+
+.publish-release-values-files:
+  <<: *default-values-publish
+  stage: publish-release
+  variables:
+    DISTRIBUTION: distributions-release-local
+    EXTRA_ARGS: "--release"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
